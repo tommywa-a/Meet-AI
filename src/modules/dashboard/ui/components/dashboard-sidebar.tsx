@@ -19,7 +19,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { DashboardUserButton } from "./dashboard-use-button"
+import { DashboardUserButton } from "./dashboard-user-button"
 
 const firstSection = [
   {
