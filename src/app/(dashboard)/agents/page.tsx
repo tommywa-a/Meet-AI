@@ -1,6 +1,6 @@
 import { Suspense } from "react"
 import { headers } from "next/headers"
-import { SearchParams } from "nuqs"
+import type { SearchParams } from "nuqs"
 import { redirect } from "next/navigation"
 import { ErrorBoundary } from "react-error-boundary"
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
