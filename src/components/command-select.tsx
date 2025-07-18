@@ -37,10 +37,18 @@ export const CommandSelect = ({
   const [open, setOpen] = useState(false)
   const selectedOption = options.find((option) => option.value === value)
 
+  // const handleOpenChange = (open: boolean) => {
+  //   onSearch?.("")
+  //   setOpen(open)
+  // }
+
   return (
     <>
       <Button
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setOpen(true)
+          onSearch?.("")
+        }}
         type="button"
         variant="outline"
         className={cn(
