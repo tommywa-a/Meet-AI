@@ -25,6 +25,7 @@ import { MeetingGetOne } from "../../types"
 import { meetingsInsertSchema } from "../../schemas"
 
 import { NewAgentDialog } from "@/modules/agents/ui/components/new-agent-dialog"
+import { MAX_PAGE_SIZE } from "@/constants"
 
 interface MeetingFormProps {
   onSuccess?: (id?: string) => void
@@ -45,7 +46,7 @@ export const MeetingForm = ({
 
   const agents = useQuery(
     trpc.agents.getMany.queryOptions({
-      pageSize: 100,
+      pageSize: MAX_PAGE_SIZE,
       search: agentSearch,
     })
   )
