@@ -119,6 +119,27 @@ export async function POST(req: NextRequest) {
         endedAt: new Date(),
       })
       .where(and(eq(meetings.id, meetingId), eq(meetings.status, "active")))
+  } else if (eventType === "call.transcription_ready") {
+    const event = payload as CallTranscriptionReadyEvent
+    const meetingId = event.call_cid.split(":")[1]
+
+    if (!meetingId) {
+      return NextResponse.json({ error: "Missing meetingId" }, {status: 400 })
+    }
+
+    const [updatedMeeting] = await db
+      .update(meetings)
+      .set({
+        transcriptUrl: event.call_transcription.url,
+      })
+      .where(eq(meetings.id, meetingId))
+      .returning()
+
+      if (!updatedMeeting) {
+        return NextResponse.json({ error: "Meeting not found" }, { status: 404 })
+      }
+
+      // TODO Call Inngest background job to summarize the transcript
   }
 
   return NextResponse.json({ status: "ok" })
