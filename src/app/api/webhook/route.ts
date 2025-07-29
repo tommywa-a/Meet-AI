@@ -140,6 +140,20 @@ export async function POST(req: NextRequest) {
       }
 
       // TODO Call Inngest background job to summarize the transcript
+  } else if (eventType === "call.recording_ready") {
+        const event = payload as CallRecordingReadyEvent
+    const meetingId = event.call_cid.split(":")[1]
+
+    if (!meetingId) {
+      return NextResponse.json({ error: "Missing meetingId" }, {status: 400 })
+    }
+
+    await db
+      .update(meetings)
+      .set({
+        recordingUrl: event.call_recording.url,
+      })
+      .where(eq(meetings.id, meetingId))
   }
 
   return NextResponse.json({ status: "ok" })
