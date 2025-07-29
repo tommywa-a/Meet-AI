@@ -104,6 +104,21 @@ export async function POST(req: NextRequest) {
 
     const call = streamVideo.video.call("default", meetingId)
     await call.end()
+  } else if (eventType === "call.session_ended") {
+    const event = payload as CallEndedEvent
+    const meetingId = event.call.custom?.meetingId
+
+    if (!meetingId) {
+      return NextResponse.json({ error: "Missing meetingId" }, {status: 400 })
+    }
+
+    await db
+      .update(meetings)
+      .set({
+        status: "processing",
+        endedAt: new Date(),
+      })
+      .where(and(eq(meetings.id, meetingId), eq(meetings.status, "active")))
   }
 
   return NextResponse.json({ status: "ok" })
