@@ -35,7 +35,16 @@ Example:
 })
 
 export const meetingsProcessing = inngest.createFunction(
-  { id: "meetings/processing" },
+  { id: "meetings/processing",
+    onFailure: async ({event, error }) => {
+      await db
+        .update(meetings)
+        .set({
+          status: "cancelled",
+        })
+        .where(eq(meetings.id, event.data.event.data.meetingId))
+    }
+   },
   { event: "meetings/processing" },
   async ({ event, step }) => {
     const response = await step.run("fetch-transcript", async () => {
