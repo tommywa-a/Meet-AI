@@ -61,10 +61,16 @@ export const CompletedState = ({ data }: Props) => {
         </div>
         <TabsContent value="recording">
           <div className="bg-white rounded-lg border px-4 py-5">
-            <video
+            {data.recordingUrl ? (
+              <video
               src={data.recordingUrl ?? ''}
               className="w-full rounded-lg"
             />
+            ) : (
+              <div className="text-center py-4 text-muted-foreground">
+                No recording available
+              </div>
+            )}
           </div>
         </TabsContent>
         <TabsContent value="summary">
