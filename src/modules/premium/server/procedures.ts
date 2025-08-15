@@ -5,7 +5,6 @@ import { agents, meetings } from "@/db/schema";
 import { polarClient } from "@/lib/polar";
 import {
   createTRPCRouter,
-  premiumProcedure,
   protectedProcedure,
 } from "@/trpc/init";
 
