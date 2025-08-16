@@ -14,6 +14,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Meet AI",
   description: "AI Chat agent for meetings",
+  icons: {
+    icon: "/logo.svg", // Path to favicon in /public
+  },
 };
 
 export default function RootLayout({
