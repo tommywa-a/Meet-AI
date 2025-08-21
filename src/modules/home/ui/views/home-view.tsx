@@ -1,9 +1,11 @@
 'use client'
 
+import HeroSection from "../components/hero-section"
+
 export const HomeView = () => {
 	return (
 		<div>
-			Home view
+			<HeroSection />
 		</div>
 	)
 }
