@@ -5,12 +5,12 @@ import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
 
 const menuItems = [
-    { name: 'Features', href: '#link' },
-    { name: 'Solution', href: '#link' },
-    { name: 'Pricing', href: '#link' },
-    { name: 'About', href: '#link' },
+    { name: 'Features', href: '/how-it-works' },
+    // { name: 'Pricing', href: '/pricing' },
+    { name: 'About', href: '/how-it-works' },
 ]
 
 export const HeroHeader = () => {
@@ -36,7 +36,8 @@ export const HeroHeader = () => {
                                 href="/"
                                 aria-label="home"
                                 className="flex items-center space-x-2">
-                                <Logo />
+                                <Image src="/logo.svg" height={36} width={36} alt="Meet AI" />
+                                <p className="text-2xl font-semibold">Meet AI</p>
                             </Link>
 
                             <button
@@ -82,7 +83,7 @@ export const HeroHeader = () => {
                                     variant="outline"
                                     size="sm"
                                     className={cn(isScrolled && 'lg:hidden')}>
-                                    <Link href="#">
+                                    <Link href="/sign-in">
                                         <span>Login</span>
                                     </Link>
                                 </Button>
@@ -90,7 +91,7 @@ export const HeroHeader = () => {
                                     asChild
                                     size="sm"
                                     className={cn(isScrolled && 'lg:hidden')}>
-                                    <Link href="#">
+                                    <Link href="/sign-up">
                                         <span>Sign Up</span>
                                     </Link>
                                 </Button>
@@ -98,7 +99,7 @@ export const HeroHeader = () => {
                                     asChild
                                     size="sm"
                                     className={cn(isScrolled ? 'lg:inline-flex' : 'hidden')}>
-                                    <Link href="#">
+                                    <Link href="/sign-up">
                                         <span>Get Started</span>
                                     </Link>
                                 </Button>
