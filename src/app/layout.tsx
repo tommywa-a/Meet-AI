@@ -27,8 +27,9 @@ export default function RootLayout({
   return (
     <NuqsAdapter>
       <TRPCReactProvider>
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
           <body
+            suppressHydrationWarning
             className={`${inter.className}  antialiased`}
           >
             <Toaster />
