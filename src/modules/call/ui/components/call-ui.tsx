@@ -15,18 +15,27 @@ export const CallUI = ({ meetingName }: Props) => {
 
   const handleJoin = async () => {
     nProgress.start()
-    if (!call) return
+    try {
+      if (!call) return
 
-    await call.join()
+      await call.join()
 
-    setShow("call")
+      setShow("call")
+    } finally {
+      nProgress.done()
+    }
   }
 
   const handleLeave = () => {
-    if (!call) return
+    nProgress.start()
+    try {
+      if (!call) return
 
-    call.endCall()
-    setShow("ended")
+      call.endCall()
+      setShow("ended")
+    } finally {
+      nProgress.done()
+    }
   }
 
   return (

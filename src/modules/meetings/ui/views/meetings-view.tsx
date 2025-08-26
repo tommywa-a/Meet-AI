@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { useSuspenseQuery } from "@tanstack/react-query"
+import nProgress from "nprogress"
 
 import { useTRPC } from "@/trpc/client"
 import { DataTable } from "@/components/data-table"
@@ -12,23 +13,32 @@ import { DataPagination } from "@/components/data-pagination"
 
 import { columns } from "../components/columns"
 import { useMeetingsFilters } from "../../hooks/use-meetings-filters"
-import nProgress from "nprogress"
 
 export const MeetingsView = () => {
   const trpc = useTRPC()
   const router = useRouter()
   const [filters, setFilters] = useMeetingsFilters()
 
-const {data} = useSuspenseQuery(trpc.meetings.getMany.queryOptions({
-  ...filters,
-}))
+  // Handle route change for nProgress
+  const handleRowClick = async (row: { id: string }) => {
+    nProgress.start()
+    try {
+      await router.push(`/meetings/${row.id}`)
+    } finally {
+    }
+  }
+  nProgress.done()
+
+  const { data } = useSuspenseQuery(trpc.meetings.getMany.queryOptions({
+    ...filters,
+  }))
 
   return (
     <div className="flex-1 pb-4 px-4 md:px-8 flex flex-col gap-y-4">
       <DataTable
         data={data.items}
         columns={columns}
-        onRowClick={(row) => {nProgress.start(); router.push(`/meetings/${row.id}`)}}
+        onRowClick={handleRowClick}
       />
       <DataPagination
         page={filters.page}

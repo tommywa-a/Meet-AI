@@ -57,36 +57,41 @@ export const SignInView = () => {
       {
         onSuccess: () => {
           setPending(false)
+          nProgress.done()
           router.push("/meetings")
         },
         onError: ({ error }) => {
           setPending(false)
           setError(error.message)
+          nProgress.done()
         },
       }
     )
   }
 
     const onSocial = (provider: "github" | "google") => {
-		setError(null)
-		setPending(true)
+      nProgress.start()
+      setError(null)
+      setPending(true)
 
-		authClient.signIn.social(
-			{
-				provider,
-        callbackURL: "/meetings"
-			},
-			{
-				onSuccess: () => {
-					setPending(false)
-				},
-				onError: ({ error }) => {
-					setPending(false)
-					setError(error.message)
-				},
-			}
-		)
-	}
+      authClient.signIn.social(
+        {
+          provider,
+          callbackURL: "/meetings"
+        },
+        {
+          onSuccess: () => {
+            setPending(false)
+            nProgress.done()
+          },
+          onError: ({ error }) => {
+            setPending(false)
+            setError(error.message)
+            nProgress.done()
+          },
+        }
+      )
+    }
 
 	return (
 		<div className='flex flex-col gap-6'>
@@ -158,7 +163,7 @@ export const SignInView = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <Button
                     disabled={pending}
-                    onClick={() => {onSocial("google"); nProgress.start()}}
+                    onClick={() => {onSocial("google")}}
                     variant="outline"
                     type="button"
                     className="w-full"
@@ -167,7 +172,7 @@ export const SignInView = () => {
                   </Button>
                   <Button
                     disabled={pending}
-                    onClick={() => {onSocial("github"); nProgress.start()}}
+                    onClick={() => {onSocial("github")}}
                     variant="outline"
                     type="button"
                     className="w-full"

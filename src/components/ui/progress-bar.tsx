@@ -20,7 +20,6 @@ export default function ProgressBar() {
 
     NProgress.configure({
       showSpinner: false,
-      trickleSpeed: 2000,
       template: `
         <div class="bar" role="bar" style="height: 4px; background: #10b981;">
           <div class="peg" style="box-shadow: 0 0 10px #10b981, 0 0 5px #10b981; height: 8px;"></div>

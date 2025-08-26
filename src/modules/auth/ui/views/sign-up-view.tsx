@@ -22,6 +22,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from '@/components/ui/form'
+import nProgress from 'nprogress'
 
 const formSchema = z
 	.object({
@@ -51,6 +52,7 @@ export const SignUpView = () => {
 	})
 
 	const onSubmit = (data: z.infer<typeof formSchema>) => {
+		nProgress.start()
 		setError(null)
 		setPending(true)
 
@@ -64,10 +66,12 @@ export const SignUpView = () => {
 			{
 				onSuccess: () => {
 					setPending(false)
+					nProgress.done()
           router.push("/meetings")
 				},
 				onError: ({ error }) => {
 					setPending(false)
+					nProgress.done()
 					setError(error.message)
 				},
 			}
@@ -75,6 +79,7 @@ export const SignUpView = () => {
 	}
 
   const onSocial = (provider: "github" | "google") => {
+		nProgress.start()
 		setError(null)
 		setPending(true)
 
@@ -86,9 +91,11 @@ export const SignUpView = () => {
 			{
 				onSuccess: () => {
 					setPending(false)
+					nProgress.done()
 				},
 				onError: ({ error }) => {
 					setPending(false)
+					nProgress.done()
 					setError(error.message)
 				},
 			}

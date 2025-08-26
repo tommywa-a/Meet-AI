@@ -31,10 +31,15 @@ export const DashboardUserButton = () => {
   const { data, isPending } = authClient.useSession()
 
   const onLogout = () => {
+    nProgress.start()
     authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
+          nProgress.done()
           router.push("/sign-in")
+        },
+        onError: () => {
+          nProgress.done()
         }
       }
     })
@@ -84,7 +89,7 @@ export const DashboardUserButton = () => {
             </Button>
             <Button
               variant="outline"
-              onClick={() => {onLogout(); nProgress.start()}}
+              onClick={() => {onLogout()}}
             >
               <LogOutIcon className="size-4 text-black" />
               Logout
@@ -135,7 +140,7 @@ export const DashboardUserButton = () => {
           <CreditCardIcon className="size-4" />
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => {onLogout(); nProgress.start()}}
+          onClick={() => {onLogout()}}
           className="cursor-pointer flex items-center justify-between"
         >
           Logout
