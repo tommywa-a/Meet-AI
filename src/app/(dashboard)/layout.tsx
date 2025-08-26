@@ -4,6 +4,7 @@ import { auth } from "@/lib/auth";
 import { DashboardNavbar } from "@/modules/dashboard/ui/components/dashboard-navbar";
 import { DashboardSidebar } from "@/modules/dashboard/ui/components/dashboard-sidebar";
 import { headers } from "next/headers";
+import ProgressBar from "@/components/ui/progress-bar";
 
 interface Props {
   children: React.ReactNode
@@ -15,13 +16,20 @@ const Layout = async ({ children }: Props) => {
     })
   
     const isUserLoggedIn = !!session?.user
-  return ( 
+    
+  // Ensure ProgressBar is outside any conditional rendering
+  return (
     <SidebarProvider>
-      {isUserLoggedIn && <DashboardSidebar />}
-      <main className="flex flex-col h-screen w-screen bg-muted">
-        {isUserLoggedIn && <DashboardNavbar />}
-        {children}
-      </main>
+      <ProgressBar />
+      <div className="flex h-screen w-screen bg-muted">
+        {isUserLoggedIn && <DashboardSidebar />}
+        <main className="flex-1 flex flex-col overflow-hidden">
+          {isUserLoggedIn && <DashboardNavbar />}
+          <div className="flex-1 overflow-y-auto">
+            {children}
+          </div>
+        </main>
+      </div>
     </SidebarProvider>
    );
 }

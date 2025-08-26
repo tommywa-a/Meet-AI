@@ -23,6 +23,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
+import nProgress from "nprogress"
 
 export const DashboardUserButton = () => {
   const router = useRouter()
@@ -83,7 +84,7 @@ export const DashboardUserButton = () => {
             </Button>
             <Button
               variant="outline"
-              onClick={onLogout}
+              onClick={() => {onLogout(); nProgress.start()}}
             >
               <LogOutIcon className="size-4 text-black" />
               Logout
@@ -134,7 +135,7 @@ export const DashboardUserButton = () => {
           <CreditCardIcon className="size-4" />
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={onLogout}
+          onClick={() => {onLogout(); nProgress.start()}}
           className="cursor-pointer flex items-center justify-between"
         >
           Logout

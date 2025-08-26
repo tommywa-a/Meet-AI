@@ -12,6 +12,7 @@ import { DataPagination } from "@/components/data-pagination"
 
 import { columns } from "../components/columns"
 import { useMeetingsFilters } from "../../hooks/use-meetings-filters"
+import nProgress from "nprogress"
 
 export const MeetingsView = () => {
   const trpc = useTRPC()
@@ -27,7 +28,7 @@ const {data} = useSuspenseQuery(trpc.meetings.getMany.queryOptions({
       <DataTable
         data={data.items}
         columns={columns}
-        onRowClick={(row) => router.push(`/meetings/${row.id}`)}
+        onRowClick={(row) => {nProgress.start(); router.push(`/meetings/${row.id}`)}}
       />
       <DataPagination
         page={filters.page}

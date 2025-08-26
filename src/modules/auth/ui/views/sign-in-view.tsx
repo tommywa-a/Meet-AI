@@ -22,6 +22,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import nProgress from "nprogress"
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -43,6 +44,7 @@ export const SignInView = () => {
   })
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
+    nProgress.start()
     setError(null)
     setPending(true)
 
@@ -156,7 +158,7 @@ export const SignInView = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <Button
                     disabled={pending}
-                    onClick={() => onSocial("google")}
+                    onClick={() => {onSocial("google"); nProgress.start()}}
                     variant="outline"
                     type="button"
                     className="w-full"
@@ -165,7 +167,7 @@ export const SignInView = () => {
                   </Button>
                   <Button
                     disabled={pending}
-                    onClick={() => onSocial("github")}
+                    onClick={() => {onSocial("github"); nProgress.start()}}
                     variant="outline"
                     type="button"
                     className="w-full"
