@@ -3,6 +3,7 @@ import { StreamTheme, useCall } from "@stream-io/video-react-sdk"
 import { CallLobby } from "./call-lobby"
 import { CallActive } from "./call-active"
 import { CallEnded } from "./call-ended"
+import nProgress from "nprogress"
 
 interface Props {
   meetingName: string
@@ -13,18 +14,28 @@ export const CallUI = ({ meetingName }: Props) => {
   const [show, setShow] = useState<"lobby" | "call" | "ended">("lobby")
 
   const handleJoin = async () => {
-    if (!call) return
+    nProgress.start()
+    try {
+      if (!call) return
 
-    await call.join()
+      await call.join()
 
-    setShow("call")
+      setShow("call")
+    } finally {
+      nProgress.done()
+    }
   }
 
   const handleLeave = () => {
-    if (!call) return
+    nProgress.start()
+    try {
+      if (!call) return
 
-    call.endCall()
-    setShow("ended")
+      call.endCall()
+      setShow("ended")
+    } finally {
+      nProgress.done()
+    }
   }
 
   return (

@@ -22,6 +22,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import nProgress from "nprogress"
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -43,6 +44,7 @@ export const SignInView = () => {
   })
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
+    nProgress.start()
     setError(null)
     setPending(true)
 
@@ -55,36 +57,41 @@ export const SignInView = () => {
       {
         onSuccess: () => {
           setPending(false)
+          nProgress.done()
           router.push("/meetings")
         },
         onError: ({ error }) => {
           setPending(false)
           setError(error.message)
+          nProgress.done()
         },
       }
     )
   }
 
     const onSocial = (provider: "github" | "google") => {
-		setError(null)
-		setPending(true)
+      nProgress.start()
+      setError(null)
+      setPending(true)
 
-		authClient.signIn.social(
-			{
-				provider,
-        callbackURL: "/meetings"
-			},
-			{
-				onSuccess: () => {
-					setPending(false)
-				},
-				onError: ({ error }) => {
-					setPending(false)
-					setError(error.message)
-				},
-			}
-		)
-	}
+      authClient.signIn.social(
+        {
+          provider,
+          callbackURL: "/meetings"
+        },
+        {
+          onSuccess: () => {
+            setPending(false)
+            nProgress.done()
+          },
+          onError: ({ error }) => {
+            setPending(false)
+            setError(error.message)
+            nProgress.done()
+          },
+        }
+      )
+    }
 
 	return (
 		<div className='flex flex-col gap-6'>
@@ -156,7 +163,7 @@ export const SignInView = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <Button
                     disabled={pending}
-                    onClick={() => onSocial("google")}
+                    onClick={() => {onSocial("google")}}
                     variant="outline"
                     type="button"
                     className="w-full"
@@ -165,7 +172,7 @@ export const SignInView = () => {
                   </Button>
                   <Button
                     disabled={pending}
-                    onClick={() => onSocial("github")}
+                    onClick={() => {onSocial("github")}}
                     variant="outline"
                     type="button"
                     className="w-full"
@@ -180,10 +187,12 @@ export const SignInView = () => {
             </form>
           </Form>
           <div className='bg-radial from-sidebar-accent to-sidebar relative hidden md:flex flex-col gap-y-4 items-center justify-center'>
-            <p className='text-2xl font-semibold text-white'>
-              <img src="/logo.svg" alt="Image" className='h-[92px] w-[92px]' />
-              Meet-AI
-            </p>
+            <Link href="/">
+              <p className='text-2xl font-semibold text-white'>
+                <img src="/logo.svg" alt="Image" className='h-[92px] w-[92px]' />
+                Meet-AI
+              </p>
+            </Link>
           </div>
         </CardContent>
       </Card>

@@ -4,8 +4,10 @@ import { NuqsAdapter } from "nuqs/adapters/next"
 
 import { TRPCReactProvider } from "@/trpc/client";
 import { Toaster } from "@/components/ui/sonner";
+import ProgressBar from "@/components/ui/progress-bar";
 
 import "./globals.css";
+import "nprogress/nprogress.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,8 +29,10 @@ export default function RootLayout({
   return (
     <NuqsAdapter>
       <TRPCReactProvider>
-        <html lang="en">
+        <ProgressBar />
+        <html lang="en" suppressHydrationWarning>
           <body
+            suppressHydrationWarning
             className={`${inter.className}  antialiased`}
           >
             <Toaster />
