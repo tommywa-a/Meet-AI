@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/command"
 import { useTRPC } from "@/trpc/client"
 import { GeneratedAvatar } from "@/components/generated-avatar"
+import nProgress from "nprogress"
+import { Loader2 } from "lucide-react"
 
 interface Props {
   open: boolean,
@@ -23,18 +25,30 @@ export const DashboardCommand = ({open, setOpen}: Props) => {
   const [search, setSearch] = useState("")
 
   const trpc = useTRPC()
-  const meetings = useQuery(
+  const { data: meetings, isPending: meetingsPending } = useQuery(
     trpc.meetings.getMany.queryOptions({
       search,
       pageSize: 100,
     })
   )
-  const agents = useQuery(
+  const { data: agents, isPending: agentsPending } = useQuery(
     trpc.agents.getMany.queryOptions({
       search,
       pageSize: 100,
     })
   )
+
+  const handleMeetingSelect = (meetingId: string) => {
+    nProgress.start()
+    router.push(`/meetings/${meetingId}`)
+    setOpen(false)
+  }
+
+  const handleAgentSelect = (agentId: string) => {
+    nProgress.start()
+    router.push(`/agents/${agentId}`)
+    setOpen(false)
+  }
 
   return (
     <CommandResponsiveDialog shouldFilter={false} open={open} onOpenChange={setOpen}>
@@ -46,16 +60,13 @@ export const DashboardCommand = ({open, setOpen}: Props) => {
       <CommandList>
         <CommandGroup heading="Meetings">
           <CommandEmpty>
-            <span className="text-muted-foreground text-sm">
-              No meetings found
+            <span className="text-muted-foreground text-sm flex items-center justify-center">
+              {meetingsPending ? <Loader2 className="size-4 animate-spin" /> : "No meetings found"}
             </span>
           </CommandEmpty>
-          {meetings.data?.items.map((meeting) => (
+          {meetings?.items.map((meeting) => (
             <CommandItem
-              onSelect={() => {
-                router.push(`/meetings/${meeting.id}`)
-                setOpen(false)
-              }}
+              onSelect={() => handleMeetingSelect(meeting.id)}
               key={meeting.id}
             >
               {meeting.name}
@@ -64,16 +75,13 @@ export const DashboardCommand = ({open, setOpen}: Props) => {
         </CommandGroup>
         <CommandGroup heading="Agents">
           <CommandEmpty>
-            <span className="text-muted-foreground text-sm">
-              No agents found
+            <span className="text-muted-foreground text-sm flex items-center justify-center">
+              {agentsPending ? <Loader2 className="size-4 animate-spin" /> : "No agents found"}
             </span>
           </CommandEmpty>
-          {agents.data?.items.map((agent) => (
+          {agents?.items.map((agent) => (
             <CommandItem
-              onSelect={() => {
-                router.push(`/agents/${agent.id}`)
-                setOpen(false)
-              }}
+              onSelect={() => handleAgentSelect(agent.id)}
               key={agent.id}
             >
               <GeneratedAvatar
