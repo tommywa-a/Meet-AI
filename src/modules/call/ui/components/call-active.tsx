@@ -32,7 +32,7 @@ import { useRouter } from "next/navigation";
           action: {
             label: "End call",
             onClick: () => {
-              call?.endCall(),
+              call?.endCall();
               router.push("/meetings")
             }
           },
@@ -45,7 +45,7 @@ import { useRouter } from "next/navigation";
     return () => {
       call?.off("call.session_participant_left", handleParticipantLeft);
     };
-  }, [call]);
+  }, [call, router]);
   
   return (
     <div className="flex flex-col justify-between p-4 h-full text-white">

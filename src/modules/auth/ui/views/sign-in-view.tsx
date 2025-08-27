@@ -23,6 +23,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import nProgress from "nprogress"
+import Image from "next/image"
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -33,7 +34,7 @@ export const SignInView = () => {
   const router = useRouter()
 
   const [pending, setPending] = useState(false)
-  const [error, setError] = useState<String | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -189,7 +190,14 @@ export const SignInView = () => {
           <div className='bg-radial from-sidebar-accent to-sidebar relative hidden md:flex flex-col gap-y-4 items-center justify-center'>
             <Link href="/">
               <p className='text-2xl font-semibold text-white'>
-                <img src="/logo.svg" alt="Image" className='h-[92px] w-[92px]' />
+                <Image
+                  src="/logo.svg"
+                  alt="Image"
+                  className='h-[92px] w-[92px]'
+                  width={92}
+                  height={92}
+                  priority
+                />
                 Meet-AI
               </p>
             </Link>

@@ -4,26 +4,17 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
-  CheckCircle2,
   Bot,
-  MessageSquare,
   Users,
-  Zap,
   Clock,
-  BarChart,
-  Shield,
   Video,
   Sparkles,
   UserPlus,
 } from "lucide-react";
 import Link from "next/link";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 const features = [
   {
@@ -90,7 +81,7 @@ export const HowItWorksView = () => {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Button size="lg" asChild>
-                <Link href="/sign-up">Get Started - It's Free</Link>
+                <Link href="/sign-up">Get Started - It&apos;s Free</Link>
               </Button>
               <Button
                 size="lg"

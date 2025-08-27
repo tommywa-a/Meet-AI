@@ -1,15 +1,14 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
-export default function ProgressBar() {
+function ProgressBarContent() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Handle route changes
   useEffect(() => {
     // Only run in browser environment
     if (typeof window === 'undefined') return;
@@ -29,15 +28,14 @@ export default function ProgressBar() {
 
     // Handle programmatic navigation
     const handlePushState = () => NProgress.start();
-    const handlePopState = () => NProgress.done();
 
     // Override history methods with proper types
-    const handlePush = function(this: History, data: any, unused: string, url?: string | URL | null) {
+    const handlePush = function(this: History, data: unknown, unused: string, url?: string | URL | null) {
       handlePushState();
       return originalPush.call(this, data, unused, url);
     };
 
-    const handleReplace = function(this: History, data: any, unused: string, url?: string | URL | null) {
+    const handleReplace = function(this: History, data: unknown, unused: string, url?: string | URL | null) {
       handlePushState();
       return originalReplace.call(this, data, unused, url);
     };
@@ -98,4 +96,12 @@ export default function ProgressBar() {
   }, [pathname, searchParams]);
 
   return null;
+}
+
+export default function ProgressBar() {
+  return (
+    <Suspense fallback={null}>
+      <ProgressBarContent />
+    </Suspense>
+  );
 }
