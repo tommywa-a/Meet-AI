@@ -23,7 +23,7 @@ import { useRouter } from "next/navigation";
     const handleParticipantLeft = (event: CallSessionParticipantLeftEvent) => {
       if (event.participant.role === "user") {
         toast.error("Error: Agent left unexpectedly", {
-          duration: 600000,
+          duration: 10000,
           style: {
             backgroundColor: "#fb2c36",
             color: "white",
