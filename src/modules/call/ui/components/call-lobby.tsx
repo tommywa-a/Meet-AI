@@ -74,8 +74,8 @@ export const CallLobby = ({ onJoin }: Props) => {
             <ToggleAudioPreviewButton />
             <ToggleVideoPreviewButton />
           </div>
-          <div className="flex gap-x-2 justify-between w-full">
-            <Button asChild variant="ghost">
+          <div className="flex gap-y-4 justify-center md:justify-between items-center flex-col-reverse md:flex-row w-full">
+            <Button asChild variant="default" className="md:bg-muted md:hover:bg-transparent md:text-foreground/80 md:hover:text-foreground md:shadow-none md:border-0">
               <Link href="/meetings">
                 Cancel
               </Link>
