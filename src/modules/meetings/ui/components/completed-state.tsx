@@ -73,6 +73,7 @@ export const CompletedState = ({ data }: Props) => {
               <video
               src={data.recordingUrl ?? ''}
               className="w-full rounded-lg"
+              controls
             />
             ) : (
               <div className="text-center py-4 text-muted-foreground">
