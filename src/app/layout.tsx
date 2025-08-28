@@ -4,7 +4,7 @@ import { NuqsAdapter } from "nuqs/adapters/next"
 
 import { TRPCReactProvider } from "@/trpc/client";
 import { Toaster } from "@/components/ui/sonner";
-import ProgressBar from "@/components/ui/progress-bar";
+import ProgressBarWrapper from "@/components/ui/progress-bar-wrapper";
 
 import "./globals.css";
 import "nprogress/nprogress.css";
@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <NuqsAdapter>
       <TRPCReactProvider>
-        <ProgressBar />
+        <ProgressBarWrapper />
         <html lang="en" suppressHydrationWarning>
           <body
             suppressHydrationWarning
