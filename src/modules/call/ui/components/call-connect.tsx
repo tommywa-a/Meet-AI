@@ -68,8 +68,8 @@ userImage,
   
     return () => {
       if (_call.state.callingState !== CallingState.LEFT) {
-        _call.leave
-        _call.endCall()
+        _call.leave();
+        _call.endCall();
         setCall(undefined)
       }
     }

@@ -1,9 +1,8 @@
 'use client'
 import Link from 'next/link'
-import { Logo } from '@/components/logo'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
@@ -13,22 +12,43 @@ const menuItems = [
     { name: 'About', href: '/how-it-works' },
 ]
 
-export const HeroHeader = () => {
-    const [menuState, setMenuState] = React.useState(false)
-    const [isScrolled, setIsScrolled] = React.useState(false)
+const useScrollEffect = (threshold = 50) => {
+    const [isScrolled, setIsScrolled] = useState(false)
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50)
+            // Try to get scroll position from the main scrollable container first
+            const scrollContainer = document.querySelector('.overflow-y-auto')
+            const scrollY = scrollContainer ? scrollContainer.scrollTop : window.scrollY
+            setIsScrolled(scrollY > threshold)
         }
-        window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [])
+        
+        // Set initial state
+        handleScroll()
+        
+        // Find the scrollable container (either window or the main content div)
+        const scrollContainer = document.querySelector('.overflow-y-auto') || window
+        
+        // Add event listener to the correct scroll container
+        scrollContainer.addEventListener('scroll', handleScroll, { passive: true })
+        
+        // Cleanup
+        return () => {
+            scrollContainer.removeEventListener('scroll', handleScroll)
+        }
+    }, [threshold])
+
+    return isScrolled
+}
+
+export const HeroHeader = () => {
+    const [menuState, setMenuState] = useState(false)
+    const isScrolled = useScrollEffect(50)
     return (
         <header>
             <nav
                 data-state={menuState && 'active'}
-                className="fixed z-20 w-full px-2">
+                className="fixed top-0 left-0 right-0 z-50 w-full px-2">
                 <div className={cn('mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 lg:px-12', isScrolled && 'bg-background/50 max-w-4xl rounded-2xl border backdrop-blur-lg lg:px-5')}>
                     <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
                         <div className="flex w-full justify-between lg:w-auto">

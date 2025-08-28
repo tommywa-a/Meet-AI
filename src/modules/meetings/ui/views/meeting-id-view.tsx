@@ -17,6 +17,7 @@ import { ProcessingState } from "../components/processing-state"
 import { UpdateMeetingDialog } from "../components/update-meeting-dialog"
 import { MeetingIdViewHeader } from "../components/meeting-id-view-header"
 import { CompletedState } from "../components/completed-state"
+import nProgress from "nprogress"
 
 interface Props {
   meetingId: string
@@ -60,6 +61,11 @@ export const MeetingIdView = ({ meetingId }: Props) => {
 
     await removeMeeting.mutateAsync({ id: meetingId })
   }
+  
+  const handleBackToMeetings = () => {
+    nProgress.start()
+    router.push("/meetings")
+  }
 
   const isActive = data.status === "active"
   const isUpcoming = data.status === "upcoming"
@@ -89,7 +95,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
       {isUpcoming && (
         <UpcomingState
           meetingId={meetingId}
-          onCancelMeeting={() => {}}
+          onBackToMeetings={handleBackToMeetings}
           isCancelling={false}
         />)}
      </div>

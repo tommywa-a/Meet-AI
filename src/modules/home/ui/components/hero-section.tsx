@@ -2,12 +2,11 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { ArrowRight, ChevronRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { TextEffect } from '@/components/ui/text-effect'
 import { AnimatedGroup } from '@/components/ui/animated-group'
-import { HeroHeader } from './header'
 import {Variants} from 'framer-motion'
 import { authClient } from '@/lib/auth-client'
 import { MeetOurPartners } from './meet-our-partners'
@@ -184,15 +183,15 @@ export default function HeroSection() {
                                         className="bg-background aspect-15/8 relative hidden rounded-2xl dark:block"
                                         src={isLoggedIn ? "/logo.svg" : "/Meet-AI-Screenhot.png"}
                                         alt="app screen"
-                                        width="2700"
-                                        height="1440"
+                                        width={1400}
+                                        height={720}
                                     />
                                     <Image
                                         className="z-2 border-border/25 aspect-15/8 relative rounded-2xl border dark:hidden"
                                         src={isLoggedIn ? "/logo.svg" : "/Meet-AI-Screenhot.png"}
                                         alt="app screen"
-                                        width="2700"
-                                        height="1440"
+                                        width={1200}
+                                        height={720}
                                     />
                                 </div>
                             </div>

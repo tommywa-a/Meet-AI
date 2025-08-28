@@ -36,7 +36,7 @@ Example:
 
 export const meetingsProcessing = inngest.createFunction(
   { id: "meetings/processing",
-    onFailure: async ({event, error }) => {
+    onFailure: async ({ event }) => {
       await db
         .update(meetings)
         .set({
