@@ -1,14 +1,24 @@
 # MeetAI
 
-MeetAI is a modern web application that provides AI-powered meeting and video calling capabilities. Built with Next.js and featuring real-time communication, it's designed to enhance virtual meetings with AI assistance.
+MeetAI is a revolutionary platform that enables you to create and interact with custom AI agents through natural video conversations. Whether you need a personal coach, language tutor, or just an intelligent conversation partner, MeetAI brings your AI companions to life with realistic video interactions.
 
-## Features
+## 🌟 Key Features
 
-### Free Tier
-- 🎥 Real-time video calling with high-quality streaming
-- 🤖 Up to 3 AI agents
-- 📅 Schedule up to 3 meetings
-- 📝 Basic meeting summaries and transcripts
+### AI Agent Creation
+- 🎭 Design custom AI personalities with unique traits and expertise
+- 🎨 Personalize your AI's appearance, voice, and communication style
+- 🔄 Create multiple AI agents for different purposes
+
+### Video Calling
+- 🎥 High-quality, low-latency video calls with your AI agents
+- 🗣️ Natural, human-like conversations powered by advanced AI
+- 🌐 Available 24/7 - your AI agents are always ready to chat
+
+## 🚀 Free Tier
+- 🎥 Video calls with up to 3 custom AI agents
+- 🎭 Basic AI personality customization
+- 🎙️ Text-to-speech with natural voice synthesis
+- 📝 Conversation history and transcripts
 - 🎨 Modern, responsive UI with dark/light mode
 
 ### Premium Tier (via Polar)
@@ -20,7 +30,7 @@ MeetAI is a modern web application that provides AI-powered meeting and video ca
 - ⚡ Priority background processing with Inngest
 - 🔄 Seamless payment management via Polar
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 - **Frontend**: Next.js 15, React 19, TypeScript
 - **Styling**: Tailwind CSS, Radix UI
@@ -34,7 +44,15 @@ MeetAI is a modern web application that provides AI-powered meeting and video ca
 - **Deployment**: Vercel (compatible)
 - **Testing**: Jest, React Testing Library
 
-## Getting Started
+## ✨ Use Cases
+
+- 🎓 **Learning & Education**: Practice languages, get tutoring, or learn new skills
+- 🏋️ **Coaching & Self-Improvement**: Work with AI life coaches, fitness trainers, or career advisors
+- 💼 **Professional Development**: Practice interviews, presentations, or negotiations
+- 🎭 **Entertainment**: Have fun conversations, roleplay, or just chat with interesting AI personalities
+- 🧠 **Mental Wellness**: Talk through thoughts with a supportive AI companion
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
